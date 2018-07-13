@@ -71,8 +71,8 @@ public class DynamicIntegerArray {
 			//C. if i  is less than location
 			//		set the element at i of the new array to the element at i of the member array
 			
-			//D. if i  is less than location
-			//		set the element at i -1 of the new array to the element at i of the member array
+			//D. if i  is greater than location
+			//		set the element at i - 1 of the new array to the element at i of the member array
 			
 			//E. else, continue;
 			
