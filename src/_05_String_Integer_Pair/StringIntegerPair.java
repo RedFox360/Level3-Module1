@@ -53,7 +53,7 @@ public class StringIntegerPair {
 		return null;
 	}
 	
-	//9. Complete the getKeysMethod so it returns the values as an array
+	//9. Complete the getValues so it returns the values as an array
 	public int[] getValues() {
 		return null;
 	}
