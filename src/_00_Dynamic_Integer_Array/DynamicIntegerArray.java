@@ -25,7 +25,7 @@ public class DynamicIntegerArray {
 		//D. set the member array equal to the new array.
 	}
 	
-	//4. Complete the steps in the add method
+	//4. Complete the steps in the get method
 	public int get(int location) {
 		//A. Return the value of the memeber array at the location passed in
 		return 0;
