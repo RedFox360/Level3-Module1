@@ -42,7 +42,7 @@ public class IntegerStack {
 		
 	}
 	
-	//6. Complete the size array to return 
+	//6. Complete the size method to return 
 	//   the length of the member array
 	public int size() {
 		return 0;
