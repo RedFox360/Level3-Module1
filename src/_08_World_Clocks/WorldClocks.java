@@ -42,7 +42,6 @@ import javax.swing.Timer;
 public class WorldClocks implements ActionListener {
 	ClockUtilities clockUtil;
 	Timer timer;
-	String dateStr, timeStr;
 	TimeZone timeZone;
 	ArrayList<JTextArea> addedTextAreas;
 	JFrame frame;
@@ -51,10 +50,8 @@ public class WorldClocks implements ActionListener {
 	JButton check;
 	JTextField cityField, countryField;
 	String city;
-	ArrayList<Calendar> times;
 	ArrayList<String> names;
 	public WorldClocks() {
-		times = new ArrayList<>();
 		clockUtil = new ClockUtilities();
 		textAreas = new ArrayList<>();
 		names = new ArrayList<>();
@@ -64,7 +61,6 @@ public class WorldClocks implements ActionListener {
 		city = "San Diego, US";
 		TimeZone timeZone = clockUtil.getTimeZoneFromCityName(city);
 		Calendar c = Calendar.getInstance(timeZone);
-		times.add(c);
 		names.add(city);
 		JTextArea textArea1 = new JTextArea();
 		textAreas.add(textArea1);
@@ -105,27 +101,30 @@ public class WorldClocks implements ActionListener {
 			TimeZone timeZone = clockUtil.getTimeZoneFromCityName(city);
 			Calendar c = Calendar.getInstance(timeZone);
 			String amOrPM;
-			if (c.AM_PM == c.AM)
+			if (Calendar.AM_PM == Calendar.AM)
 				amOrPM = "AM";
 			else
 				amOrPM = "PM";
 			String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND) + " "
 					+ amOrPM;
-			times.add(c);
 			names.add(city);
 			textAreas.add(new JTextArea());
 			System.out.println("Time in " + city + ": " + time);
 		}
 		if (e.getSource() == timer) {
 			for (int i = 0; i < textAreas.size(); i++) {
-				System.out.println("TIMER");
-				Calendar c = times.get(i);
-				String militaryTime = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":"
-						+ c.get(Calendar.SECOND);
-				String twelveHourTime = " [" + c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":"
-						+ c.get(Calendar.SECOND) + "]";
-				dateStr = "";
-				timeStr = militaryTime + twelveHourTime;
+				Calendar c = Calendar.getInstance(clockUtil.getTimeZoneFromCityName(names.get(i)));
+				String amOrPM;
+				if (c.get(Calendar.AM_PM) == Calendar.AM)
+					amOrPM = "AM";
+				else
+					amOrPM = "PM";
+				String militaryTime = "(" + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":"
+						+ c.get(Calendar.SECOND) + ")";
+				String twelveHourTime = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":"
+						+ c.get(Calendar.SECOND) + " " + amOrPM;
+				String dateStr = c.get(Calendar.MONTH) + "/" + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.YEAR);
+				String timeStr = twelveHourTime + " " + militaryTime;
 				JTextArea textArea = textAreas.get(i);
 				textAreas.get(i).setText(names.get(i) + '\n' + dateStr + '\n' + timeStr);
 				if (!addedTextAreas.contains(textArea)) {
